@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Administrator\IdeaProjects\kwikpay_server\env"
+VIRTUAL_ENV="E:\Clone\web\Python\kwikpay_server\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

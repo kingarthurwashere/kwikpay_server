@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,9 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'transactions.apps.TransactionsConfig',
+    'app_auth',
+    'app_utils',
+    'appemail',
+    'fulfillment',
     'rest_framework',
-    'kwikpay',
+    'rest_auth.registration',
+    'django_celery_results',
+    'main',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +59,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+       
+    ]
+}
 
 ROOT_URLCONF = 'kwikpay_server.urls'
 
@@ -102,6 +119,33 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#configurations
+AUTH_USER_MODEL = 'app_auth.User'
+
+
+# Payment Gateways 
+PAYPAL_RECEIVER_EMAIL = 'sb-qh03w385814@business.example.com'
+PAYPAL_TEST = True
+
+STRIPE_PUBLIC_KEY = "pk_test_51JSLv1KtP5hZKd0Tl1T0LZ7v7TNWuaH757srPj65eKjIuct3amhKYtvnszHjxiZXl1iPaYPxtC2LWmifpcX46hZG00gHBYY4p0"
+STRIPE_SECRET_KEY = "sk_test_51JSLv1KtP5hZKd0T3kaJijXNM6oHFugo0AWljP67JxzTKLhjmknYi4BfogvORVv4Ky5a29vu6DWGedDW0aJyF2aI00BuSpaZqk"
+STRIPE_WEBHOOK_SECRET = "whsec_6EwTJucSliT1j4Dm6D7DHKU1XsKFtCHp"
+
+
+
+# Hot Recharge
+HOT_RECHARGE_EMAIL = "chido@quhwm.co.zw"
+HOT_REACHARGE_PASSWORD = "chayil2021"
+
+
+EMAIL_HOST = 'kwikpay.co.zw'
+EMAIL_HOST_USER = 'hello@kwikpay.co.zw'
+EMAIL_HOST_PASSWORD = '67595911[n00b]'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -124,3 +168,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+CELERY_TIMEZONE = "Africa/Harare"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+
+# celery setting.
+CELERY_CACHE_BACKEND = 'default'
