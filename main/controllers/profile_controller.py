@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate
 @login_required
 def user_orders(request):
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'main/profile/orders.html', {'orders': orders, 'pagename': 'orders'})
+    return render(request, 'welcome back', {'orders': orders, 'pagename': 'orders'})
 
 @login_required
 def user_password(request):
@@ -32,7 +32,7 @@ def user_password(request):
             put_error_message(request, 'Incorrect old password.')
         
         
-    return render(request, 'main/profile/password.html', {
+    return render(request, '/', {
         'pagename': 'change_password',
     })
 
@@ -58,7 +58,7 @@ def user_profile(request):
     
     
     
-    return render(request, 'main/profile/personal.html', {
+    return render(request, '/', {
         'pagename': 'personal',
     })
     

@@ -9,6 +9,7 @@ from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
 from app_auth.tasks import tsk_send_welcome_message, tsk_send_password_reset
+from app_utils.helpers import is_email, is_password_valid, put_error_message, put_success_message
 
 def register(request):
     if request.method == "POST":
@@ -50,7 +51,7 @@ def register(request):
                     
                     
         if (destination_url == None):
-            destination_url = '/accounts/login/'
+            destination_url = '/'
                 
         return redirect(destination_url)
     else:
@@ -76,7 +77,7 @@ def password_reset(request):
             return redirect(reverse("password_reset_done"))
     
     
-    return render(request, "app_auth/password_reset.html", {})
+    return render(request, "/", {})
 
 def login(request):
     if request.method == "POST":
@@ -104,6 +105,6 @@ def login(request):
             
         page_seo = get_page_seo("login")
             
-        return render(request, "app_auth/login.html", {"next": next_value, 'seo': page_seo})
+        return render(request, "/", {"next": next_value, 'seo': page_seo})
     
     

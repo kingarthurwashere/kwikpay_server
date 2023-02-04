@@ -95,7 +95,7 @@ def recharge_order_summary(request, order_id):
     order = Order.objects.get(id=order_id)
     
     zw_equivalent  = float(order.airtime_amount) * float(get_setting("USD_TO_ZWL_RATE", 120))
-    return render(request, 'main/recharge_order_summary.html', {
+    return render(request, '/', {
         'order': order,
         'zw_equivalent': zw_equivalent
     })

@@ -43,7 +43,7 @@ def recharge_failed(request, order_id):
     order.transaction.save()
     
     
-    return render(request, 'main/recharge_failed.html', {
+    return render(request, 'failed', {
         'order': order,
         'date': get_current_date()
     })
@@ -55,7 +55,7 @@ def recharge_successful(request, order_id):
     order.transaction.status = Transaction.Status.PAYMENT_SUCCESS.label
     order.transaction.save()
     
-    return render(request, 'main/recharge_successful.html', {
+    return render(request, 'done', {
         'order': order, 
         'date': get_current_date(),
         'username': request.user.username,
